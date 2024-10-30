@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeploy-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      color: green
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        color: green
+    spec:
+      containers:
+      - name: myapp
+        image: jiho9898/keduinitlab:green
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits:
+            memory: "64Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

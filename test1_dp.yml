@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeploy
+  namespace: keduit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mydeploy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mydeploy
+    spec:
+      containers:
+      - name: myapp
+        image: mariadb:10.4
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1000Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          value: test123
